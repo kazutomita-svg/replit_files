@@ -36,7 +36,7 @@ class RoboticsToolkit:
         self.current_entry = tk.Entry(power_box)
         self.current_entry.grid(row=1, column=1, padx=10, pady=10)
 
-        # Unit Selection Dropdown (Refined Feature)
+        # Unit Selection Dropdown
         self.unit_var = tk.StringVar(value="mA")
         self.unit_dropdown = ttk.Combobox(power_box, textvariable=self.unit_var, width=5, state="readonly")
         self.unit_dropdown['values'] = ("mA", "A")
