@@ -210,7 +210,7 @@ class RoboticsToolkit:
         self.res_output = tk.Label(self.tab_resistors, text="Results will appear here...", font=("Arial", 12, "bold"))
         self.res_output.pack(pady=10)
 
-        self.toggle_bands() # Set initial state (sets the tab up before resistor tab is selected)
+        self.toggle_bands() # Set initial state (sets up the tab before resistor tab is selected)
 
     def toggle_bands(self):
         """Hides or shows the 3rd digit band based on selection"""
