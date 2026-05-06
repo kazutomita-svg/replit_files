@@ -6,7 +6,7 @@ class RoboticsToolkit:
     def __init__(self, root):
         self.root = root
         self.root.title("JackBord Toolkit Version 7 - Resistors Tab")
-        self.root.geometry("550x600")
+        self.root.geometry("550x800")
 
         # Tab Controller
         self.notebook = ttk.Notebook(root)
@@ -167,6 +167,29 @@ class RoboticsToolkit:
             messagebox.showerror("Input Error", "Please enter a valid number.")
 
     def setup_resistor_ui(self):
+        ref_box = ttk.LabelFrame(self.tab_resistors, text=" Resistor Color Code Reference ")
+        ref_box.pack(padx=20, pady=10, fill="x")
+
+        # Table For Resistor Colour Codes
+        ref_text =  "Color  | Digit | Multiplier | Tolerance\n"
+        ref_text += "-------|-------|------------|----------\n"
+        ref_text += "Black  |   0   | x1         | --\n"
+        ref_text += "Brown  |   1   | x10        | ±1%\n"
+        ref_text += "Red    |   2   | x100       | ±2%\n"
+        ref_text += "Orange |   3   | x1k        | --\n"
+        ref_text += "Yellow |   4   | x10k       | --\n"
+        ref_text += "Green  |   5   | x100k      | --\n"
+        ref_text += "Blue   |   6   | x1M        | --\n"
+        ref_text += "Violet |   7   | --         | --\n"
+        ref_text += "Gray   |   8   | --         | --\n"
+        ref_text += "White  |   9   | --         | --\n"
+        ref_text += "Gold   |   --  | --         | ±5%\n"
+        ref_text += "Silver |   --  | --         | ±10%"
+
+        ref_label = tk.Label(ref_box, text=ref_text, justify="left", 
+                     font=("Courier", 9), padx=10, pady=10)
+        ref_label.pack()
+
         # Mode Selection (4-band or 5-band)
         mode_frame = ttk.LabelFrame(self.tab_resistors, text=" Select Resistor Type ")
         mode_frame.pack(padx=20, pady=10, fill="x")
