@@ -22,7 +22,7 @@ class RoboticsToolkit:
         self.setup_power_logic_ui()
         self.setup_units_ui()
 
-        # Color data for resistor calculations
+        # Colour data for resistor calculations
         self.colors = {
             "Black": 0, "Brown": 1, "Red": 2, "Orange": 3, "Yellow": 4,
             "Green": 5, "Blue": 6, "Violet": 7, "Gray": 8, "White": 9
@@ -167,11 +167,11 @@ class RoboticsToolkit:
             messagebox.showerror("Input Error", "Please enter a valid number.")
 
     def setup_resistor_ui(self):
-        ref_box = ttk.LabelFrame(self.tab_resistors, text=" Resistor Color Code Reference ")
+        ref_box = ttk.LabelFrame(self.tab_resistors, text=" Resistor Colour Code Reference ")
         ref_box.pack(padx=20, pady=10, fill="x")
 
         # Table For Resistor Colour Codes
-        ref_text =  "Color  | Digit | Multiplier | Tolerance\n"
+        ref_text =  "Colour  | Digit | Multiplier | Tolerance\n"
         ref_text += "-------|-------|------------|----------\n"
         ref_text += "Black  |   0   | x1         | --\n"
         ref_text += "Brown  |   1   | x10        | ±1%\n"
@@ -201,7 +201,7 @@ class RoboticsToolkit:
                        value="5", command=self.toggle_bands).pack(side="left", padx=20)
 
         # Dropdown Frame
-        self.band_frame = ttk.LabelFrame(self.tab_resistors, text=" Select Band Colors ")
+        self.band_frame = ttk.LabelFrame(self.tab_resistors, text=" Select Band Colours ")
         self.band_frame.pack(padx=20, pady=10, fill="x")
 
         # Digit 1
@@ -274,7 +274,7 @@ class RoboticsToolkit:
             self.res_output.config(text=f"Value: {display_val} ±{tol}%\nRange: {lower:g}Ω to {upper:g}Ω", fg="blue")
 
         except Exception:
-            messagebox.showerror("Error", "Please select a color for all bands.")
+            messagebox.showerror("Error", "Please select a colour for all bands.")
 
 if __name__ == "__main__":
     root = tk.Tk()
