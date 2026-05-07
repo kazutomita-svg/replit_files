@@ -22,7 +22,7 @@ class RoboticsToolkit:
         self.setup_power_logic_ui()
         self.setup_units_ui()
 
-        # Color data for resistor calculations
+        # Colour data for resistor calculations
         self.colors = {
             "Black": 0, "Brown": 1, "Red": 2, "Orange": 3, "Yellow": 4,
             "Green": 5, "Blue": 6, "Violet": 7, "Gray": 8, "White": 9
@@ -178,7 +178,7 @@ class RoboticsToolkit:
                        value="5", command=self.toggle_bands).pack(side="left", padx=20)
 
         # Dropdown Frame
-        self.band_frame = ttk.LabelFrame(self.tab_resistors, text=" Select Band Colors ")
+        self.band_frame = ttk.LabelFrame(self.tab_resistors, text=" Select Band Colours ")
         self.band_frame.pack(padx=20, pady=10, fill="x")
 
         # Digit 1
