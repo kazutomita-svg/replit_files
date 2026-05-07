@@ -8,7 +8,7 @@ import os
 class RoboticsToolkit:
     def __init__(self, root):
         self.root = root
-        self.root.title("JackBord Toolkit Version 10 - Help & Doccumentation")
+        self.root.title("JackBord Toolkit Version 10 - Help & Documentation")
         self.root.geometry("650x850")
 
         # Tab Controller
