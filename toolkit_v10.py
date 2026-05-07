@@ -418,7 +418,7 @@ class RoboticsToolkit:
         self.history_text.config(state="disabled")
 
     def clear_history_file(self):
-        """Wiping a file."""
+        """Wiping a file"""
         if messagebox.askyesno("Confirm", "Wipe the history log?"):
             open("quiz_log.txt", "w").close()
             self.load_history()
