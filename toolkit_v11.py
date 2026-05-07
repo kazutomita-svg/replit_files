@@ -707,7 +707,7 @@ class RoboticsToolkit:
         If no history file exists, displays a placeholder message.
         
         Job: Retrieve and render persistent quiz data
-        Rationale: Displaying history helps students track their learning trajectory
+        Behaviour: Displaying history helps students track their learning trajectory
         and see improvement over multiple quiz attempts.
         """
         # Enable text widget for editing (display mode)
