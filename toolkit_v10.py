@@ -399,7 +399,7 @@ class RoboticsToolkit:
         self.load_history()
 
     def save_result_to_file(self):
-        """TECHNIQUE: Appending data to a text file"""
+        """Appending data to a text file"""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
         status = "PASS" if self.score >= 7 else "FAIL"
         entry = f"[{timestamp}] Score: {self.score}/10 | {status}\n"
@@ -407,7 +407,7 @@ class RoboticsToolkit:
             file.write(entry)
 
     def load_history(self):
-        """TECHNIQUE: Reading data from a text file"""
+        """Reading data from a text file"""
         self.history_text.config(state="normal")
         self.history_text.delete("1.0", tk.END)
         if os.path.exists("quiz_log.txt"):
@@ -418,7 +418,7 @@ class RoboticsToolkit:
         self.history_text.config(state="disabled")
 
     def clear_history_file(self):
-        """TECHNIQUE: Wiping a file"""
+        """Wiping a file"""
         if messagebox.askyesno("Confirm", "Wipe the history log?"):
             open("quiz_log.txt", "w").close()
             self.load_history()

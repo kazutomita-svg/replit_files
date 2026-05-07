@@ -1,4 +1,4 @@
-# Robotics & Electronics Toolkit Version 9
+# Robotics & Electronics Toolkit Version 11
 import tkinter as tk
 from tkinter import ttk, messagebox
 import random
@@ -8,8 +8,8 @@ import os
 class RoboticsToolkit:
     def __init__(self, root):
         self.root = root
-        self.root.title("JackBord Toolkit Version 9 - File I/O & History")
-        self.root.geometry("600x850")
+        self.root.title("JackBord Toolkit Version 11 - Future Proofing & Polish")
+        self.root.geometry("650x850")
 
         # Tab Controller
         self.notebook = ttk.Notebook(root)
@@ -17,11 +17,13 @@ class RoboticsToolkit:
         self.tab_units = ttk.Frame(self.notebook)
         self.tab_resistors = ttk.Frame(self.notebook)
         self.tab_quiz = ttk.Frame(self.notebook)
+        self.tab_help = ttk.Frame(self.notebook)
 
         self.notebook.add(self.tab_power, text="Power")
         self.notebook.add(self.tab_units, text="Units")
         self.notebook.add(self.tab_resistors, text="Resistors")
         self.notebook.add(self.tab_quiz, text="Quiz & History")
+        self.notebook.add(self.tab_help, text="Help & Documentation")
         self.notebook.pack(expand=1, fill="both")
 
         self.setup_power_logic_ui()
@@ -42,6 +44,9 @@ class RoboticsToolkit:
 
         self.setup_resistor_ui()
 
+        # GUI colors
+        self.JB_WHITE = "#f8f8f8"
+
         # Quiz Data and Variables
         self.quiz_questions = [
             {"q": "What is the formula for Power?", "o": ["P = I/V", "P = IV", "P = V/I", "P = I+V"], "a": "P = IV"},
@@ -59,6 +64,7 @@ class RoboticsToolkit:
         self.current_q_index = 0
         self.score = 0
         self.setup_quiz_ui()
+        self.setup_help_ui()
 
     def setup_power_logic_ui(self):
         # Power Calculator UI
@@ -416,6 +422,32 @@ class RoboticsToolkit:
         if messagebox.askyesno("Confirm", "Wipe the history log?"):
             open("quiz_log.txt", "w").close()
             self.load_history()
+
+    def setup_help_ui(self):
+        help_box = ttk.LabelFrame(self.tab_help, text=" Help & Documentation ")
+        help_box.pack(padx=20, pady=20, fill="both", expand=True)
+
+        help_text = tk.Text(help_box, wrap="word", bg=self.JB_WHITE, font=("Arial", 10), relief="flat")
+        help_text.pack(fill="both", expand=True, padx=10, pady=10)
+
+        doc_text = (
+            "JACKBORD TOOLKIT USER DOCUMENTATION\n\n"
+            "1. POWER CALCULATOR:\n"
+            "Enter Voltage (V) and Current (I). Choose mA or A.\n"
+            "The tool calculates Power (W) and warns you if the current exceeds the 500mA JackBord limit.\n\n"
+            "2. UNIT CONVERTER:\n"
+            "Convert values between Micro, Milli, Base, Kilo, and Mega.\n"
+            "Useful for resistor values and converting units.\n\n"
+            "3. RESISTOR CALCULATOR:\n"
+            "Select 4-band or 5-band mode. Choose the color bands that match a resistor\n"
+            "to calculate its resistance and tolerance range.\n\n"
+            "4. MASTERY QUIZ:\n"
+            "Answer 10 questions to test your electronics knowledge. A score of 7/10 (70%) or more\n"
+            "earns a PASS. All attempts are saved to quiz_log.txt for review."
+        )
+
+        help_text.insert(tk.END, doc_text)
+        help_text.config(state="disabled")
 
 if __name__ == "__main__":
     root = tk.Tk()
