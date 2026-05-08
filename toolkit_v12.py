@@ -1,4 +1,4 @@
-# Robotics & Electronics Toolkit Version 12 - PEP8
+# Robotics & Electronics Toolkit Version 12 - PEP 8
 """
 An educational GUI application designed to teach fundamental electronics concepts.
 
@@ -54,7 +54,7 @@ class RoboticsToolkit:
         tools/calculators, and loads all UI components.
         """
         self.root = root
-        self.root.title("JackBord Toolkit Version 12 - PEP8")
+        self.root.title("JackBord Toolkit Version 12 - PEP 8")
         self.root.geometry("650x850")
 
         # Initialize tabbed interface (Tab Controller)
