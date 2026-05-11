@@ -46,20 +46,20 @@ class RoboticsToolkit:
         score (int): Current quiz attempt score
     """
 
-    def __init__(self, root):
+    def __init__(self, main_window):
         """
         Starting up the Robotics & Electronics Toolkit application.
 
         Sets up the main window, creates five tabs with different
         tools/calculators, and loads all UI components.
         """
-        self.root = root
+        self.root = main_window
         self.root.title("JackBord Toolkit Version 12 - PEP 8")
         self.root.geometry("650x850")
 
         # Initialize tabbed interface (Tab Controller)
         # Behaviour:Using tabs separates the modules so there is no clutter
-        self.notebook = ttk.Notebook(root)
+        self.notebook = ttk.Notebook(self.root)
         self.tab_power = ttk.Frame(self.notebook)
         self.tab_units = ttk.Frame(self.notebook)
         self.tab_resistors = ttk.Frame(self.notebook)
@@ -108,7 +108,7 @@ class RoboticsToolkit:
         self.setup_resistor_ui()
 
         # GUI colours
-        self.JB_WHITE = "#f8f8f8"
+        self.jb_white = "#f8f8f8"
 
         # Quiz question bank and answers
         # Job: Stores 10 questions covering power, units, resistors, and safety
@@ -265,12 +265,18 @@ class RoboticsToolkit:
             # Job: Prevent damage by warning when current exceeds limit
             # Behaviour: 500mA is the maximum safe current for JackBord
             if i_ma > 500:
-                result_text = f"DANGER: {i_ma}mA exceeds the 500mA JackBord limit!\nPower: {p_watts:.3f} W"
+                result_text = (
+                    f"DANGER: {i_ma}mA exceeds the 500mA JackBord "
+                    f"limit!\nPower: {p_watts:.3f} W"
+                )
                 self.result_label.config(
                     text=result_text, fg="red", font=("Arial", 11, "bold")
                 )
             else:
-                result_text = f"SAFE: Circuit is within limits.\nPower: {p_watts:.3f} W\nCurrent: {i_amps} A"
+                result_text = (
+                    f"SAFE: Circuit is within limits.\nPower: "
+                    f"{p_watts:.3f} W\nCurrent: {i_amps} A"
+                )
                 self.result_label.config(
                     text=result_text, fg="green", font=("Arial", 11)
                 )
@@ -485,7 +491,8 @@ class RoboticsToolkit:
 
         # First digit band
         # Job: Select colour for primary digit value
-        # Behaviour: 4-band and 5-band both start with first digit bands, so this control is always visible
+        # Behaviour: 4-band and 5-band both start with first
+        # digit bands, so this control is always visible
         tk.Label(self.band_frame, text="Band 1:").grid(row=0, column=0, pady=5)
         self.b1 = ttk.Combobox(
             self.band_frame, values=list(self.colors.keys()), state="readonly"
@@ -494,7 +501,8 @@ class RoboticsToolkit:
 
         # Second digit band
         # Job: Select colour for secondary digit value
-        # Behaviour: 4-band and 5-band both have a second digit band, so this control is always visible
+        # Behaviour: 4-band and 5-band both have a second
+        # digit band, so this control is always visible
         tk.Label(self.band_frame, text="Band 2:").grid(row=1, column=0, pady=5)
         self.b2 = ttk.Combobox(
             self.band_frame, values=list(self.colors.keys()), state="readonly"
@@ -503,7 +511,8 @@ class RoboticsToolkit:
 
         # Third digit band (only used for 5-band resistors)
         # Job: Select colour for tertiary digit value
-        # Behaviour: 5-band resistors have an extra digit, so this control is shown/hidden based on selected mode
+        # Behaviour: 5-band resistors have an extra digit,
+        # so this control is shown/hidden based on selected mode
         self.b3_label = tk.Label(self.band_frame, text="Band 3:")
         self.b3 = ttk.Combobox(
             self.band_frame, values=list(self.colors.keys()), state="readonly"
@@ -621,7 +630,7 @@ class RoboticsToolkit:
                 fg="blue",
             )
 
-        except Exception:
+        except (KeyError, ValueError, TypeError):
             # Ensure all bands are selected before calculation
             messagebox.showerror("Error", "Please select a colour for all bands.")
 
@@ -689,7 +698,8 @@ class RoboticsToolkit:
 
         # History tracking and review section
         # Job: Display previous quiz attempts from log file
-        # Behaviour: Historical data helps students see progression and identify areas for improvement
+        # Behaviour: Historical data helps students see
+        # progression and identify areas for improvement
         hist_box = ttk.LabelFrame(
             self.tab_quiz, text=" Quiz Attempt History (Log File) "
         )
@@ -810,7 +820,11 @@ class RoboticsToolkit:
             msg = f"PASS! You scored {percent}%\nYou are ready to use the JackBord."
             color = "green"
         else:
-            msg = f"FAIL. You scored {percent}%\nYou need at least 70% to pass. Please review the tabs and try again."
+            msg = (
+                f"FAIL. You scored {percent}%\nYou need at "
+                f"least 70% to pass. Please review the tabs and "
+                f"try again."
+            )
             color = "red"
 
         # Update UI to show results
@@ -843,7 +857,7 @@ class RoboticsToolkit:
         entry = f"[{timestamp}] Score: {self.score}/10 | {status}\n"
 
         # Append entry to log file (creates one if it doesn't exist)
-        with open("quiz_log.txt", "a") as file:
+        with open("quiz_log.txt", "a", encoding="utf-8") as file:
             file.write(entry)
 
     def load_history(self):
@@ -863,7 +877,7 @@ class RoboticsToolkit:
 
         # Read and display history file if it exists
         if os.path.exists("quiz_log.txt"):
-            with open("quiz_log.txt", "r") as file:
+            with open("quiz_log.txt", "r", encoding="utf-8") as file:
                 self.history_text.insert(tk.END, file.read())
         else:
             # Message if no attempts yet
@@ -886,7 +900,7 @@ class RoboticsToolkit:
         # Ask user for confirmation before destructive operation
         if messagebox.askyesno("Confirm", "Wipe the history log?"):
             # Overwrite file with empty content to clear history
-            open("quiz_log.txt", "w").close()
+            open("quiz_log.txt", "w", encoding="utf-8").close()
             # Refresh display to show empty history
             self.load_history()
 
@@ -906,7 +920,7 @@ class RoboticsToolkit:
 
         # Read-only text widget for documentation display
         help_text = tk.Text(
-            help_box, wrap="word", bg=self.JB_WHITE, font=("Arial", 10), relief="flat"
+            help_box, wrap="word", bg=self.jb_white, font=("Arial", 10), relief="flat"
         )
         help_text.pack(fill="both", expand=True, padx=10, pady=10)
 
@@ -915,7 +929,8 @@ class RoboticsToolkit:
             "JACKBORD TOOLKIT USER DOCUMENTATION\n\n"
             "1. POWER CALCULATOR:\n"
             "Enter Voltage (V) and Current (I). Choose mA or A.\n"
-            "The tool calculates Power (W) and warns you if the current exceeds the 500mA JackBord limit.\n\n"
+            "The tool calculates Power (W) and warns you if "
+            "the current exceeds the 500mA JackBord limit.\n\n"
             "2. UNIT CONVERTER:\n"
             "Convert values between Micro, Milli, Base, Kilo, and Mega.\n"
             "Useful for resistor values and converting units.\n\n"
@@ -923,8 +938,10 @@ class RoboticsToolkit:
             "Select 4-band or 5-band mode. Choose the colour bands that match a resistor\n"
             "to calculate its resistance and tolerance range.\n\n"
             "4. MASTERY QUIZ:\n"
-            "Answer 10 questions to test your electronics knowledge. A score of 7/10 (70%) or more\n"
-            "earns a PASS. All attempts are saved to quiz_log.txt for review."
+            "Answer 10 questions to test your electronics "
+            "knowledge. A score of 7/10 (70%) or more\n"
+            "earns a PASS. All attempts are saved to "
+            "quiz_log.txt for review."
         )
 
         # Insert documentation and disable editing
@@ -935,10 +952,6 @@ class RoboticsToolkit:
 
 
 if __name__ == "__main__":
-    """    
-    Creates tkinter window and starts RoboticsToolkit application.
-    Starts the event loop to display GUI and handle user interactions.
-    """
     root = tk.Tk()
     app = RoboticsToolkit(root)
     root.mainloop()  # Begin event loop - application runs until window is closed
